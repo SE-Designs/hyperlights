@@ -14,14 +14,14 @@
           autoplay
           class="max-w-screen max-h-screen w-full h-auto block rounded-xl"
         >
-          <!-- <source
+          <source
             src="../assets/video.mp4"
             type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'
-          /> -->
-          <source
+          />
+          <!-- <source
             src="../assets/video.webm"
             type='video/webm; codecs="vp8, vorbis"'
-          />
+          /> -->
           Your browser does not support the video tag.
         </video>
 
@@ -104,16 +104,19 @@
           </div>
           <div class="flex flex-row items-center gap-x-2">
             <div class="action-btn">
-              <IconLightning />
+              <p class="font-secondary text-sm">249</p>
+              <IconLightning class="w-18px h-18px" />
             </div>
             <div class="action-btn">
-              <IconBookmark />
+              <p class="font-secondary text-sm">12</p>
+              <IconBookmark class="w-18px h-18px" />
             </div>
             <div class="action-btn">
-              <IconShare />
+              <p class="font-secondary text-sm">4</p>
+              <IconShare class="w-18px h-18px" />
             </div>
             <div class="action-btn">
-              <IconDots />
+              <IconDots class="w-18px h-18px" />
             </div>
           </div>
         </div>
@@ -121,41 +124,41 @@
           class="flex flex-wrap flex-row gap-x-4 gap-y-2 justify-between items-center"
         >
           <div class="flex flex-row gap-x-2 items-center mr-4">
-            <div class="maintag-set">
+            <NuxtLink to="/profile/mix" class="maintag-set">
               <img
                 src="https://img.championat.com/news/big/p/y/v-dota-2-poyavilsya-pervyj-chestnyj-igrok-s-grandmasterom-na-marci-viktoriya-bonya_1637747390104987094.jpg"
                 alt=""
               />
               <h6 class="font-secondary-bold text-lg">mixturegg</h6>
-            </div>
-            <div class="maintag-set">
+            </NuxtLink>
+            <NuxtLink to="/" class="maintag-set">
               <img
                 src="https://st5.depositphotos.com/69187398/66863/v/450/depositphotos_668639280-stock-illustration-counter-strike-shooting-game-go1.jpg"
                 alt=""
               />
               <h6 class="font-secondary-bold text-lg">CS:GO</h6>
-            </div>
+            </NuxtLink>
           </div>
           <div class="flex flex-row items-center gap-x-2">
-            <div class="hashtag-set">
+            <NuxtLink to="/" class="hashtag-set">
               <IconHash class="w-[10px] min-w-[10px] h-[10px] min-h-[10px]" />
               <p class="font-secondary-bold text-sm">Ace</p>
-            </div>
-            <div class="hashtag-set">
+            </NuxtLink>
+            <NuxtLink to="/" class="hashtag-set">
               <IconHash class="w-[10px] min-w-[10px] h-[10px] min-h-[10px]" />
               <p class="font-secondary-bold text-sm">Ak47</p>
-            </div>
-            <div class="hashtag-set">
+            </NuxtLink>
+            <NuxtLink to="/" class="hashtag-set">
               <IconHash class="w-[10px] min-w-[10px] h-[10px] min-h-[10px]" />
               <p class="font-secondary-bold text-sm">Dust2</p>
-            </div>
+            </NuxtLink>
           </div>
         </div>
       </div>
     </div>
     <div
       id="comments"
-      class="w-full flex flex-col justify-center items-center flex-1 max-w-[360px] bg-[#555] rounded-2xl h-full"
+      class="w-full hidden flex-col justify-center items-center flex-1 max-w-[360px] bg-[#555] rounded-2xl h-full xl:flex"
     >
       <div id="no-comments" class="p-8 text-center">
         <h5 class="font-secondary-bold text-xl text-white">No comments yet</h5>
@@ -166,7 +169,7 @@
     </div>
   </section>
 </template>
-<style scoped>
+<style scoped lang="scss">
 #shortvideo {
   width: 100%;
   height: fit-content;
@@ -187,7 +190,15 @@
   padding: 4px 8px;
   border-radius: 6px;
 
-  img {
+  transition: all 0.2s;
+
+  &:hover {
+    color: rgba(255, 255, 255, 1);
+
+    background-color: rgba(0, 0, 0, 1);
+  }
+
+  & img {
     width: 26px;
     min-width: 26px;
     height: 26px;
@@ -213,19 +224,28 @@
 
   padding: 4px 8px;
   border-radius: 6px;
+
+  transition: all 0.2s;
+
+  &:hover {
+    color: rgba(255, 255, 255, 1);
+
+    background-color: rgba(0, 0, 0, 1);
+  }
 }
 
 .action-btn {
-  width: 2.5rem;
-  height: 2.5rem;
+  height: 32px;
   cursor: pointer;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  padding: 4px;
-  border-radius: 50%;
+  gap: 4px;
+
+  padding: 6px;
+  border-radius: 6px;
   color: rgba(255, 255, 255, 0.8);
   background-color: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(2px);
@@ -243,6 +263,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
+  border: 1px solid rgba(255, 255, 255, 0.2);
 
   padding: 4px;
   border-radius: 50%;
@@ -263,6 +285,12 @@
 
   #outer-details {
     display: flex;
+  }
+
+  #comments {
+    display: flex;
+    min-width: calc(100vw - 40px);
+    margin: 0 auto 20px auto;
   }
 }
 
@@ -289,6 +317,10 @@
     padding: 1rem 1rem 2rem 1rem;
     display: flex;
   }
+
+  #comments {
+    display: flex;
+  }
 }
 
 @media only screen and (min-width: 1280px) and (min-height: 600px) {
@@ -298,6 +330,10 @@
 
   #outer-details {
     padding: 0;
+    display: flex;
+  }
+
+  #comments {
     display: flex;
   }
 }
