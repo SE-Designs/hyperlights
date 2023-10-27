@@ -1,6 +1,19 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  devtools: { enabled: true },
+  app: {
+    head: {
+      charset: "utf-8",
+      viewport: "width=device-width, initial-scale=1",
+      link: [
+        {
+          id: "theme-link",
+          rel: "stylesheet",
+          href: URL + "themes/lara-light-teal/theme.css",
+        },
+      ],
+    },
+  },
+  devtools: { enabled: false },
   modules: ["nuxt-primevue", "@unocss/nuxt"],
   primevue: {
     usePrimeVue: true,
@@ -25,7 +38,9 @@ export default defineNuxtConfig({
     },
   },
   css: [
-    "primevue/resources/themes/lara-dark-teal/theme.css",
-    "primevue/resources/themes/lara-light-teal/theme.css",
+    "~/assets/theme.css",
+    "~/assets/main.css",
+    // "primevue/resources/themes/lara-dark-teal/theme.css",
+    // "primevue/resources/themes/lara-light-teal/theme.css",
   ],
 });

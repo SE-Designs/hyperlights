@@ -10,6 +10,7 @@ export default defineConfig({
     "font-main-black": "font-sans font-900",
     "font-secondary": "font-mono font-400",
     "font-secondary-bold": "font-mono font-700",
+    centerize: "absolute right-0 bottom-0 translate-y-1/2 translate-x-1/2",
   },
   presets: [
     presetUno(),
