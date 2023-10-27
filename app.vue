@@ -1,12 +1,72 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+useHead({
+  title: "Hyperlights",
+  meta: [{ name: "description", content: "My amazing site." }],
+  script: [{ innerHTML: "console.log('Hello world')" }],
+});
+</script>
 <template>
-  <div>
-    <Button>Hello, world</Button>
-    <h1 class="text-4xl font-main-black">Hyperlights</h1>
-    <h2 class="text-2xl font-secondary-bold">Google</h2>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus labore
-      molestiae repellat enim provident pariatur non. Possimus hic sequi nihil.
-    </p>
-  </div>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
 </template>
+<style>
+html {
+  font-size: 10px;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+body {
+  overflow-x: hidden;
+  overflow-y: inherit;
+
+  background-color: black;
+  min-height: 100vh;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ol,
+ul {
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: currentColor;
+}
+
+@media only screen and (min-width: 640px) {
+  html {
+    font-size: 13px;
+  }
+}
+
+@media only screen and (min-width: 1280px) {
+  html {
+    font-size: 16px;
+  }
+}
+</style>
