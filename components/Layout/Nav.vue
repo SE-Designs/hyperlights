@@ -12,14 +12,16 @@
         <h1 class="font-main-black italic uppercase text-[#21EA59]">
           Hyperlights
         </h1>
-        <Button
-          class="flex flex-row items-center gap-x-2 max-h-[36px]"
-          text
-          size="small"
-        >
-          <IconCategories />
-          <p>Categories</p>
-        </Button>
+        <NuxtLink :to="{ name: 'categories' }">
+          <Button
+            class="flex flex-row items-center gap-x-2 max-h-[36px]"
+            text
+            size="small"
+          >
+            <IconCategories />
+            <p>Categories</p>
+          </Button>
+        </NuxtLink>
       </div>
       <div class="flex flex-row items-center gap-x-4 mr-12px">
         <Button
