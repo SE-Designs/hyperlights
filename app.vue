@@ -56,6 +56,7 @@ img {
 
 a {
   color: currentColor;
+  text-decoration: none;
 }
 
 @media only screen and (min-width: 640px) {
