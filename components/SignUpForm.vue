@@ -1,20 +1,50 @@
 <script setup lang="ts">
-const formValue = ref({
-  login: undefined,
-  email: undefined,
-  password: undefined,
-});
-
+const client = useSupabaseClient();
+const emit = defineEmits(["showNotification"]);
 const router = useRouter();
 
-function submitForm() {
+const formValue = ref({
+  login: "",
+  email: "",
+  password: "",
+});
+
+async function submitForm() {
   console.log(formValue.value);
 
-  router.push("/some-url");
+  try {
+    const { data, error } = await client.auth.signUp({
+      email: formValue.value.email,
+      password: formValue.value.password,
+      options: {
+        data: {
+          login: formValue.value.login,
+        },
+      },
+    });
+
+    if (error) throw error;
+
+    emit(
+      "showNotification",
+      "Account was created",
+      "Check your email to confirm your account",
+      "success"
+    );
+    router.push("/auth#sign-in");
+  } catch (error) {
+    emit(
+      "showNotification",
+      "Account was not created",
+      "Please try again...",
+      "error"
+    );
+  }
 }
 </script>
 <template>
-  <form novalidate class="flex flex-col gap-4">
+  <form novalidate class="flex flex-col gap-4" @submit.prevent="submitForm">
+    <Toast />
     <div class="flex flex-col gap-2">
       <label for="login-input">Login</label>
       <InputText id="login-input" v-model="formValue.login" />
@@ -33,9 +63,9 @@ function submitForm() {
       />
     </div>
     <Button
+      type="submit"
       severity="primary"
       class="mt-4 font-secondary-bold uppercase justify-center"
-      @click="submitForm"
       >Sign Up</Button
     >
   </form>
