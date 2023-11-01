@@ -1,5 +1,9 @@
 <script setup lang="ts">
-//
+import { AudioPlayer, VideoPlayer } from "vue-md-player";
+import video from "@/assets/video.mp4";
+import "vue-md-player/dist/style.css";
+
+const videoRef = ref();
 </script>
 <template>
   <section
@@ -8,28 +12,22 @@
     <div class="flex flex-col flex-1">
       <div
         id="shortvideo"
-        class="relative flex justify-center items-center bg-black rounded-2xl relative"
+        class="relative flex justify-center items-center bg-black rounded-2xl relative cursor-pointer"
       >
-        <video
-          autoplay
-          class="max-w-screen max-h-screen w-full h-auto block rounded-xl"
+        <div
+          class="flex justify-center items-center max-w-48px max-h-48px w-48px h-48px min-w-48px min-h-48px rounded-full bg-[#333] op-50 p-4 centerize"
         >
-          <source
-            src="../assets/video.mp4"
-            type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'
-          />
-          <!-- <source
-            src="../assets/video.webm"
-            type='video/webm; codecs="vp8, vorbis"'
-          /> -->
-          Your browser does not support the video tag.
-        </video>
-
-        <!-- <img
-          src="https://cdn.sanity.io/images/hdokr93d/production/1c905d8fe810e2fe727f41c65416b6ebd15744e2-1920x1080.jpg?w=1920&h=1080"
-          alt=""
-          class="block rounded-xl"
-        /> -->
+          <IconPlay class="text-white w-full h-full" />
+        </div>
+        <video-player
+          ref="videoRef"
+          autoplay
+          preload
+          loop
+          playsinline
+          class="max-w-screen max-h-screen w-full h-auto block rounded-xl"
+          :src="video"
+        />
         <div id="inner-details" class="w-full h-full absolute">
           <div
             class="absolute right-0 bottom-50% translate-y-1/2 w-fit flex flex-col gap-y-4 mr-20px"
@@ -105,18 +103,18 @@
           <div class="flex flex-row items-center gap-x-2">
             <div class="action-btn">
               <p class="font-secondary text-sm">249</p>
-              <IconLightning class="w-18px h-18px" />
+              <IconLightning class="w-14px h-14px" />
             </div>
             <div class="action-btn">
               <p class="font-secondary text-sm">12</p>
-              <IconBookmark class="w-18px h-18px" />
+              <IconBookmark class="w-14px h-14px" />
             </div>
             <div class="action-btn">
               <p class="font-secondary text-sm">4</p>
-              <IconShare class="w-18px h-18px" />
+              <IconShare class="w-14px h-14px" />
             </div>
             <div class="action-btn">
-              <IconDots class="w-18px h-18px" />
+              <IconDots class="w-14px h-14px" />
             </div>
           </div>
         </div>
