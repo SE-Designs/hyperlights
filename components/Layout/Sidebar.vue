@@ -1,8 +1,33 @@
 <script setup lang="ts">
-const emit = defineEmits(["update-theme"]);
+const client = useSupabaseClient();
+const emit = defineEmits(["update-theme", "showNotification"]);
+const router = useRouter();
 
 function updateTheme() {
   emit("update-theme");
+}
+
+async function logout() {
+  try {
+    const { error } = await client.auth.signOut();
+
+    if (error) throw error;
+
+    emit(
+      "showNotification",
+      "You are logged out",
+      "You have successfully logged out",
+      "success"
+    );
+    router.push("/auth#sign-in");
+  } catch (error) {
+    emit(
+      "showNotification",
+      "Failed to logout",
+      "Please try again...",
+      "error"
+    );
+  }
 }
 </script>
 <template>
@@ -68,7 +93,7 @@ function updateTheme() {
       </NuxtLink>
       <hr class="bg-[#333] text-[#333] w-[32px]" />
       <NuxtLink to="/auth">
-        <IconLogout class="sidelink" />
+        <IconLogout class="sidelink" @click="logout" />
       </NuxtLink>
     </div>
   </aside>
