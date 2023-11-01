@@ -29,7 +29,7 @@ bun run build
 - Bun
 - UnoCSS: [Default](https://unocss.dev/presets/uno)
 - PrimeVue: [Lara Light/Dark](https://primevue.org/theming/)
-- Icons: [Remix Icons](https://icones.js.org/collection/ri)
+- Icons: [Streamline Icons](https://icones.js.org/collection/streamline)
 - Fonts: [Archivo 400:700:900, Space Grotesk 400:700](https://fonts.bunny.net/)
 - PWA support: [PWA/Nuxt](https://pwa.nuxtjs.org/setup)
 - Mobile support: [Ionic/Capacitor](https://ionic.nuxtjs.org/get-started/installation)
@@ -37,6 +37,22 @@ bun run build
 ## Roadmap:
 
 - [2023 Oct. 24] - Initial Scaffolding
+  - Nuxt 3, TS, Bun
+  - UnoCSS, PrimeVue, Fonts, Icons
+  - Nuxt/PWA, Capacitor [FUTURE]
 - [2023 Nov. 31] - Frontend Proof-of-Concept
+  - Navbar, Sidebar, Default Layout
+  - Index page, Shortvideo component
+  - Categories, Auth, 404, Settings pages
+  - Profile page
+  - Admin page [FUTURE]
+- [2023 Dec. 16] - Nuxt Backend
+  - Nuxt Backend
+  - Supabase Auth
+  - AWS Videos
+  - AWS Audio [FUTURE]
 - [2023 Dec. 31] - Full-featured Frontend
-- [2024 Jan. 31] - PWA Working App
+  - Testing
+  - Hotfixing
+  - Deploying
+- [2024 Jan. 31] - PWA Working App [FUTURE]
