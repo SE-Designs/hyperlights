@@ -22,7 +22,7 @@ function showNotification(
 </script>
 
 <template>
-  <LayoutNav />
+  <LayoutNav @show-notification="showNotification" />
   <LayoutSidebar
     @update-theme="darkMode = !darkMode"
     @show-notification="showNotification"
