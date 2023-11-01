@@ -1,4 +1,37 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const user = useSupabaseUser();
+const client = useSupabaseClient();
+const emit = defineEmits(["showNotification"]);
+const router = useRouter();
+const profileFly = ref(false);
+
+function toggleProfileFly() {
+  profileFly.value = !profileFly.value;
+}
+
+async function logout() {
+  try {
+    const { error } = await client.auth.signOut();
+
+    if (error) throw error;
+
+    emit(
+      "showNotification",
+      "You are logged out",
+      "You have successfully logged out",
+      "success"
+    );
+    router.push("/auth#sign-in");
+  } catch (error) {
+    emit(
+      "showNotification",
+      "Failed to logout",
+      "Please try again...",
+      "error"
+    );
+  }
+}
+</script>
 <template>
   <nav
     class="fixed hidden flex-row items-center top-0 left-0 w-screen h-[60px] bg-[#111] text-white back z-20 xl:flex"
@@ -35,8 +68,34 @@
         <img
           src="https://img.championat.com/news/big/p/y/v-dota-2-poyavilsya-pervyj-chestnyj-igrok-s-grandmasterom-na-marci-viktoriya-bonya_1637747390104987094.jpg"
           alt=""
-          class="rounded-sm border border-[#21ea59] w-[36px] h-[36px]"
+          class="rounded-sm border border-[#21ea59] w-[36px] h-[36px] cursor-pointer"
+          @click="toggleProfileFly"
         />
+      </div>
+    </div>
+    <div class="fixed right-12px top-72px" v-if="profileFly">
+      <div class="flex flex-col gap-y-1 rounded-lg bg-[#333] p-2">
+        <NuxtLink
+          class="flex flex-row justify-between items-center gap-x-4 bg-[#222] py-2 px-4 rounded-md cursor-pointer"
+          :to="/profile/ + `${user?.user_metadata.login}`"
+        >
+          <IconUser />
+          <b>Profile</b>
+        </NuxtLink>
+        <NuxtLink
+          class="flex flex-row justify-between items-center gap-x-4 bg-[#222] py-2 px-4 rounded-md cursor-pointer"
+          to="/settings"
+        >
+          <IconSettings />
+          <b>Settings</b>
+        </NuxtLink>
+        <div
+          class="flex flex-row justify-between items-center gap-x-4 bg-[#222] py-2 px-4 rounded-md cursor-pointer"
+          @click="logout"
+        >
+          <IconLogout />
+          <b>Logout</b>
+        </div>
       </div>
     </div>
     <div class="absolute bottom-0 left-0 w-full bg-[#333] h-px"></div>
