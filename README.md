@@ -33,6 +33,8 @@ bun run build
 - Fonts: [Archivo 400:700:900, Space Grotesk 400:700](https://fonts.bunny.net/)
 - PWA support: [PWA/Nuxt](https://pwa.nuxtjs.org/setup)
 - Mobile support: [Ionic/Capacitor](https://ionic.nuxtjs.org/get-started/installation)
+- Video Player: [Vue-md-player](https://github.com/meyt/vue-md-player#readme)
+- Backend Service: [Supabase](https://supabase.com/dashboard/project/)
 
 ## Roadmap:
 

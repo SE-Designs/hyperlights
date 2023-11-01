@@ -14,7 +14,7 @@ export default defineNuxtConfig({
     },
   },
   devtools: { enabled: false },
-  modules: ["nuxt-primevue", "@unocss/nuxt"],
+  modules: ["nuxt-primevue", "@unocss/nuxt", "@nuxtjs/supabase"],
   primevue: {
     usePrimeVue: true,
     options: {},
@@ -35,6 +35,13 @@ export default defineNuxtConfig({
       name: undefined,
       include: undefined,
       exclude: undefined,
+    },
+  },
+  supabase: {
+    redirectOptions: {
+      login: "/auth",
+      callback: "/confirm",
+      exclude: [],
     },
   },
   css: [
