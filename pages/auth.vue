@@ -1,7 +1,10 @@
 <script setup lang="ts">
 definePageMeta({
-  layout: "login",
+  layout: "auth",
 });
+
+import { useToast } from "primevue/usetoast";
+const toast = useToast();
 
 const route = useRoute();
 const router = useRouter();
@@ -10,10 +13,29 @@ const hashFragment = computed(() => route.hash);
 const changeHash = (hash: string) => {
   router.push({ hash: hash });
 };
+
+function showNotification(
+  head: string,
+  message: string,
+  type: "success" | "error"
+) {
+  toast.add({
+    severity: type,
+    summary: head,
+    detail: message,
+    life: 3000,
+  });
+}
 </script>
 <template>
-  <div class="flex flex-row justify-between items-center min-h-screen">
-    <div class="hidden flex-1 h-screen overflow-hidden xl:block">
+  <Toast />
+
+  <div
+    class="flex flex-row justify-between items-center mx-auto h-screen max-h-[1280px]"
+  >
+    <div
+      class="hidden flex-1 flex justify-center items-center h-full overflow-hidden xl:block"
+    >
       <video src="~/assets/video.mp4"></video>
     </div>
     <div class="flex-1 flex flex-col justify-center items-center">
@@ -38,10 +60,13 @@ const changeHash = (hash: string) => {
             >Sign Up</Button
           >
         </div>
-        <SignInForm v-if="hashFragment === '#sign-in'" />
-        <SignUpForm v-else />
+        <SignInForm
+          @showNotification="showNotification"
+          v-if="hashFragment === '#sign-in'"
+        />
+        <SignUpForm @showNotification="showNotification" v-else />
+        <SignSocial />
       </div>
-      <SignSocial />
     </div>
   </div>
 </template>
