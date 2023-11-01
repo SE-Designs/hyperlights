@@ -37,11 +37,20 @@ h4,
 h5,
 h6,
 p,
+span,
+label,
+small,
+i,
+b,
+strong,
 ol,
 ul {
   margin: 0;
   padding: 0;
   font-weight: normal;
+
+  font-family: "Space Grotesk";
+  font-weight: 400;
 }
 
 ol,
