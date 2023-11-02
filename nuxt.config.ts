@@ -14,7 +14,7 @@ export default defineNuxtConfig({
     },
   },
   devtools: { enabled: false },
-  modules: ["nuxt-primevue", "@unocss/nuxt", "@nuxtjs/supabase"],
+  modules: ["nuxt-primevue", "@unocss/nuxt", "@nuxtjs/supabase", "@pinia/nuxt"],
   primevue: {
     usePrimeVue: true,
     options: {},
@@ -43,6 +43,9 @@ export default defineNuxtConfig({
       callback: "/confirm",
       exclude: [],
     },
+  },
+  pinia: {
+    storesDirs: ["./stores/**", "./custom-folder/stores/**"],
   },
   css: [
     "~/assets/theme.css",
