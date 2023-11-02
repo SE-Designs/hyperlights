@@ -62,9 +62,7 @@ async function submitForm() {
     <hr class="w-full h-px bg-[#222] text-[#222]" />
     <div class="flex flex-col text-center">
       <small>Forgot the password?</small>
-      <p class="text-[12px] text-[#21EA59] underline cursor-pointer">
-        Click here
-      </p>
+      <p class="text-sm text-[#21EA59] underline cursor-pointer">Click here</p>
     </div>
   </form>
 </template>
