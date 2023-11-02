@@ -38,6 +38,31 @@ const onUpload = () => {
 <template>
   <div class="flex flex-col gap-y-8">
     <div class="flex flex-col gap-2">
+      <label for="hyperlight">Hyperlight Video</label>
+      <FileUpload
+        id="hyperlight"
+        mode="basic"
+        name="demo[]"
+        :file-limit="1"
+        :multiple="false"
+        url="/api/upload"
+        accept="video/mp4,video/x-m4v,video/*"
+        :maxFileSize="1000000"
+        @upload="onUpload"
+        :auto="true"
+        chooseLabel="Browse"
+        aria-describedby="hyperlight"
+        class="w-full"
+      >
+        <template #uploadicon>
+          <IconUpload />
+        </template>
+      </FileUpload>
+      <small id="hyperlight-help"
+        >Max video length 2 mins, accept: .mp4, .mkv. .avi, .wav</small
+      >
+    </div>
+    <div class="flex flex-col gap-2">
       <label for="username">Hyperlight title</label>
       <InputText
         id="title"
@@ -85,31 +110,6 @@ const onUpload = () => {
       </div>
       <small id="hashtags-help"
         >Separate hashtags by "," or Enter. Maximum 5 hashtags</small
-      >
-    </div>
-    <div class="flex flex-col gap-2">
-      <label for="hyperlight">Hyperlight Video</label>
-      <FileUpload
-        id="hyperlight"
-        mode="basic"
-        name="demo[]"
-        :file-limit="1"
-        :multiple="false"
-        url="/api/upload"
-        accept="video/mp4,video/x-m4v,video/*"
-        :maxFileSize="1000000"
-        @upload="onUpload"
-        :auto="true"
-        chooseLabel="Browse"
-        aria-describedby="hyperlight"
-        class="w-full"
-      >
-        <template #uploadicon>
-          <IconUpload />
-        </template>
-      </FileUpload>
-      <small id="hyperlight-help"
-        >Max video length 2 mins, accept: .mp4, .mkv. .avi, .wav</small
       >
     </div>
     <Button class="justify-center items-center font-secondary-bold"
