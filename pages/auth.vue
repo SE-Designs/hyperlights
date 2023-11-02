@@ -31,10 +31,10 @@ function showNotification(
   <Toast />
 
   <div
-    class="flex flex-row justify-between items-center mx-auto h-screen max-h-[1280px]"
+    class="flex flex-row justify-between items-center mx-auto py-8 max-h-[1280px]"
   >
     <div
-      class="hidden flex-1 flex justify-center items-center h-full overflow-hidden xl:block"
+      class="hidden flex-1 justify-center items-center h-full overflow-hidden xl:flex"
     >
       <video src="~/assets/video.mp4"></video>
     </div>

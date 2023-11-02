@@ -2,7 +2,7 @@
 
 <template>
   <main
-    class="w-screen min-h-screen pt-0 pl-0 flex justify-center items-center"
+    class="w-screen h-full min-h-screen pt-0 pl-0 flex justify-center items-center"
   >
     <slot />
   </main>
