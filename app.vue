@@ -29,6 +29,13 @@ body {
   min-height: 100vh;
 }
 
+input,
+textarea,
+select,
+button {
+  font-family: "Space Grotesk" !important;
+}
+
 body,
 h1,
 h2,
@@ -44,6 +51,9 @@ i,
 b,
 strong,
 ol,
+input,
+textarea,
+select,
 ul {
   margin: 0;
   padding: 0;
