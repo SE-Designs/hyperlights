@@ -6,6 +6,7 @@ definePageMeta({
 import { useToast } from "primevue/usetoast";
 const toast = useToast();
 const darkMode = ref(true);
+const rightVisible = ref(false);
 
 function showNotification(
   head: string,
@@ -22,7 +23,10 @@ function showNotification(
 </script>
 
 <template>
-  <LayoutNav @show-notification="showNotification" />
+  <LayoutNav
+    @show-notification="showNotification"
+    @show-sidebar="rightVisible = true"
+  />
   <LayoutSidebar
     @update-theme="darkMode = !darkMode"
     @show-notification="showNotification"
@@ -36,6 +40,9 @@ function showNotification(
     >
       <slot />
     </div>
+    <Sidebar v-model:visible="rightVisible" position="right">
+      <CreateSide />
+    </Sidebar>
   </main>
 </template>
 <style scoped></style>

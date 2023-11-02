@@ -1,12 +1,16 @@
 <script setup lang="ts">
 const user = useSupabaseUser();
 const client = useSupabaseClient();
-const emit = defineEmits(["showNotification"]);
+const emit = defineEmits(["showNotification", "showSidebar"]);
 const router = useRouter();
 const profileFly = ref(false);
 
 function toggleProfileFly() {
   profileFly.value = !profileFly.value;
+}
+
+function toggleSidebar() {
+  emit("showSidebar");
 }
 
 async function logout() {
@@ -57,14 +61,24 @@ async function logout() {
         </NuxtLink>
       </div>
       <div class="flex flex-row items-center gap-x-4 mr-12px">
-        <Button
-          class="flex flex-row items-center gap-x-2 max-h-[36px]"
-          :outlined="true"
-          size="small"
-        >
-          <IconSearch />
-          <p>Search</p>
-        </Button>
+        <div class="flex flex-row items-center gap-x-2">
+          <Button
+            class="flex flex-row items-center gap-x-2 max-h-[36px]"
+            text
+            size="small"
+            @click="toggleSidebar"
+          >
+            <IconLightning />
+            <p>Create</p>
+          </Button>
+          <Button
+            class="flex flex-row items-center gap-x-2 max-h-[36px]"
+            size="small"
+          >
+            <IconSearch />
+            <p>Search</p>
+          </Button>
+        </div>
         <img
           src="https://img.championat.com/news/big/p/y/v-dota-2-poyavilsya-pervyj-chestnyj-igrok-s-grandmasterom-na-marci-viktoriya-bonya_1637747390104987094.jpg"
           alt=""
@@ -74,7 +88,7 @@ async function logout() {
       </div>
     </div>
     <div class="fixed right-12px top-72px" v-if="profileFly">
-      <div class="flex flex-col gap-y-1 rounded-lg bg-[#333] p-2">
+      <div class="flex flex-col gap-y-1 rounded-lg bg-[#555] p-1">
         <NuxtLink
           class="flex flex-row justify-between items-center gap-x-4 bg-[#222] py-2 px-4 rounded-md cursor-pointer"
           :to="/profile/ + `${user?.user_metadata.login}`"
