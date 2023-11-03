@@ -1,6 +1,11 @@
 <script setup lang="ts">
+const client = useSupabaseClient();
+
+const { data } = client.storage
+  .from("hyperlights")
+  .getPublicUrl("56984bf7-3989-4aed-b9c2-871bc72ffd5e/video.mp4");
+
 import { AudioPlayer, VideoPlayer } from "vue-md-player";
-import video from "@/assets/video.mp4";
 import "vue-md-player/dist/style.css";
 
 const videoRef = ref();
@@ -26,7 +31,7 @@ const videoRef = ref();
           loop
           playsinline
           class="max-w-screen max-h-screen w-full h-auto block rounded-xl"
-          :src="video"
+          :src="data.publicUrl"
         />
         <div id="inner-details" class="w-full h-full absolute">
           <div
