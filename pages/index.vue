@@ -8,32 +8,32 @@
       >
         <div class="card">
           <div class="flex justify-center items-center">
-            <IconLightning class="icon-wrapper" />
-            <h6 class="text-lg font-main-bold">Newest</h6>
+            <IconLightning class="icon-wrapper bg-black" />
+            <h6 class="text-lg font-secondary">Newest</h6>
           </div>
         </div>
         <div class="card">
           <div class="flex justify-center items-center">
-            <IconLightning class="icon-wrapper" />
-            <h6 class="text-lg font-main-bold">For You</h6>
+            <IconUser class="icon-wrapper bg-black" />
+            <h6 class="text-lg font-secondary">For You</h6>
           </div>
         </div>
         <div class="card">
           <div class="flex justify-center items-center">
-            <IconLightning class="icon-wrapper" />
-            <h6 class="text-lg font-main-bold">Trending</h6>
+            <IconTrending class="icon-wrapper bg-black" />
+            <h6 class="text-lg font-secondary">Trending</h6>
           </div>
         </div>
-        <div class="card">
+        <div class="card text-white">
           <div class="flex justify-center items-center">
-            <IconLightning class="icon-wrapper" />
-            <h6 class="text-lg font-main-bold">Best of the Day</h6>
+            <IconHash class="icon-wrapper bg-[#222]" />
+            <h6 class="text-lg font-secondary">CS2</h6>
           </div>
         </div>
-        <div class="card">
+        <div class="card text-white">
           <div class="flex justify-center items-center">
-            <IconLightning class="icon-wrapper" />
-            <h6 class="text-lg font-main-bold">Best of the Week</h6>
+            <IconHash class="icon-wrapper bg-[#222]" />
+            <h6 class="text-lg font-secondary">Week59</h6>
           </div>
         </div>
       </aside>
@@ -69,7 +69,6 @@
     min-width: 48px;
     min-height: 48px;
 
-    background-color: black;
     border-radius: 50%;
 
     margin-right: 1rem;

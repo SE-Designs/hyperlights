@@ -19,11 +19,9 @@ const videoRef = ref();
         id="shortvideo"
         class="relative flex justify-center items-center bg-black rounded-2xl relative cursor-pointer"
       >
-        <div
-          class="flex justify-center items-center max-w-48px max-h-48px w-48px h-48px min-w-48px min-h-48px rounded-full bg-[#333] op-50 p-4 centerize"
-        >
+        <!-- <div class="paused-wrapper">
           <IconPlay class="text-white w-full h-full" />
-        </div>
+        </div> -->
         <video-player
           ref="videoRef"
           autoplay
@@ -274,6 +272,31 @@ const videoRef = ref();
   color: rgba(255, 255, 255, 0.8);
   background-color: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(2px);
+}
+
+.paused-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  max-width: 48px;
+  max-height: 48px;
+  min-width: 48px;
+  min-height: 48px;
+  width: 100%;
+  height: 100%;
+
+  border-radius: 50%;
+  background-color: rgba(51, 51, 51, 0.4);
+  backdrop-filter: blur(2px);
+  padding: 1rem;
+
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  z-index: 30;
 }
 
 @media only screen and (max-width: 1024px) {
