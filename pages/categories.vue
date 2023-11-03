@@ -1,36 +1,15 @@
 <script setup lang="ts">
-const categories = ref([
-  {
-    name: "Apex Legends",
-    img: "",
-    url: "",
-    number: 249,
-  },
-  {
-    name: "CS 2",
-    img: "",
-    url: "",
-    number: 249,
-  },
-  {
-    name: "CS:GO",
-    img: "",
-    url: "",
-    number: 249,
-  },
-  {
-    name: "Fortnite",
-    img: "",
-    url: "",
-    number: 249,
-  },
-]);
+const client = useSupabaseClient();
+
+let { data, error } = await client.from("maintag").select("*");
 </script>
 <template>
   <div
     class="flex flex-row justify-center items-center gap-8 w-full bg-[#222] rounded-2xl p-8 max-w-[1440px] mx-auto"
   >
-    <NuxtLink
+    {{ data }}
+    {{ error }}
+    <!-- <NuxtLink
       :to="{ name: 'index' }"
       v-for="card in categories"
       :key="card.name"
@@ -47,7 +26,7 @@ const categories = ref([
           {{ card.number }} Hyperlights
         </p>
       </div>
-    </NuxtLink>
+    </NuxtLink> -->
   </div>
 </template>
 <style scoped></style>
