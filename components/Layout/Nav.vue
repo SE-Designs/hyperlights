@@ -5,6 +5,10 @@ const emit = defineEmits(["showNotification", "showSidebar"]);
 const router = useRouter();
 const profileFly = ref(false);
 
+const { data } = client.storage
+  .from("avatars")
+  .getPublicUrl(`${user.value?.id}.jpg`);
+
 function toggleProfileFly() {
   profileFly.value = !profileFly.value;
 }
@@ -80,7 +84,7 @@ async function logout() {
           </Button>
         </div>
         <img
-          src="https://img.championat.com/news/big/p/y/v-dota-2-poyavilsya-pervyj-chestnyj-igrok-s-grandmasterom-na-marci-viktoriya-bonya_1637747390104987094.jpg"
+          :src="data.publicUrl"
           alt=""
           class="rounded-sm border border-[#21ea59] w-[36px] h-[36px] cursor-pointer"
           @click="toggleProfileFly"
