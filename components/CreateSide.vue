@@ -1,11 +1,15 @@
 <script setup lang="ts">
 const user = useSupabaseUser();
+const client = useSupabaseClient();
+// const url =
 
 const formValue = ref({
+  fileName: "",
   title: "",
   maintag: "",
   author: user.value?.user_metadata.login,
   hashtags: [],
+  video: "",
 });
 
 const maintags = ref([
@@ -31,9 +35,26 @@ const search = (event: any) => {
   }, 250);
 };
 
-const onUpload = () => {
-  console.log("OK");
+const selectFile = async (event: any) => {
+  formValue.value.video = event.files[0];
+  formValue.value.fileName = event.files[0].name;
 };
+
+async function submitVideo() {
+  const { data, error } = await client.storage
+    .from("hyperlights")
+    .upload(
+      `${user.value?.id}/${formValue.value.title}.png`,
+      formValue.value.video,
+      {
+        cacheControl: "3600",
+        upsert: false,
+      }
+    );
+
+  console.log(data);
+  console.log(error);
+}
 </script>
 <template>
   <div class="flex flex-col gap-y-8">
@@ -42,13 +63,11 @@ const onUpload = () => {
       <FileUpload
         id="hyperlight"
         mode="basic"
-        name="demo[]"
+        name="hyperlight"
         :file-limit="1"
         :multiple="false"
-        url="/api/upload"
         accept="video/mp4,video/x-m4v,video/*"
-        :maxFileSize="1000000"
-        @upload="onUpload"
+        @select="selectFile"
         :auto="true"
         chooseLabel="Browse"
         aria-describedby="hyperlight"
