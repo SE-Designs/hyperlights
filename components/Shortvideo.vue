@@ -1,35 +1,64 @@
 <script setup lang="ts">
-const client = useSupabaseClient();
-
-const { data } = client.storage
-  .from("hyperlights")
-  .getPublicUrl("56984bf7-3989-4aed-b9c2-871bc72ffd5e/video.mp4");
-
-import { AudioPlayer, VideoPlayer } from "vue-md-player";
+import { VideoPlayer } from "vue-md-player";
 import "vue-md-player/dist/style.css";
 
+const client = useSupabaseClient();
+const user = useSupabaseUser();
+
+const props = defineProps({
+  shortvideo: {
+    type: Array,
+    required: true,
+  },
+}) as any;
+
 const videoRef = ref();
+const showingNumber = ref(0);
+
+async function submitComment(value: string, id: number) {
+  const comment_data = {
+    hyperlight_id: id,
+    author: user.value?.id,
+    comment: value,
+  } as any;
+
+  const { data: comments, error } = (await client
+    .from("comments")
+    .insert(comment_data)
+    .select()) as any;
+
+  console.log(comments);
+  console.log(error);
+}
 </script>
 <template>
   <section
-    class="w-full flex flex-col gap-x-8 justify-center items-center rounded-3xl bg-[#333] gap-y-4 xl:flex-row xl:p-4 2xl:p-8"
+    class="w-full flex flex-col gap-x-8 justify-center items-center rounded-3xl bg-[#212121] gap-y-4 xl:flex-row xl:p-4 2xl:p-8"
+    v-for="(hyperlight, i) in props.shortvideo"
+    :key="hyperlight.id"
   >
-    <div class="flex flex-col flex-1">
+    <div class="flex flex-col flex-1 w-full">
       <div
         id="shortvideo"
-        class="relative flex justify-center items-center bg-black rounded-2xl relative cursor-pointer"
+        class="relative w-full flex justify-center items-center bg-black rounded-2xl relative cursor-pointer"
       >
-        <!-- <div class="paused-wrapper">
+        <!-- <div
+          :class="
+            videoRef[i].paused ? 'paused-wrapper' : 'paused-wrapper active'
+          "
+          @click.prevent="
+            videoRef[i].paused ? videoRef[i].play() : videoRef[i].pause()
+          "
+        >
           <IconPlay class="text-white w-full h-full" />
         </div> -->
         <video-player
           ref="videoRef"
-          autoplay
           preload
           loop
           playsinline
           class="max-w-screen max-h-screen w-full h-auto block rounded-xl"
-          :src="data.publicUrl"
+          :src="hyperlight.link"
         />
         <div id="inner-details" class="w-full h-full absolute">
           <div
@@ -56,42 +85,40 @@ const videoRef = ref();
           >
             <div class="flex flex-row justify-between items-center">
               <div class="flex flex-row items-center gap-x-4">
-                <h3 class="font-main-bold text-3xl">It's Hyperlights</h3>
+                <h3 class="font-main-bold text-3xl">{{ hyperlight.title }}</h3>
               </div>
             </div>
             <div class="flex flex-row gap-x-2 items-center">
               <div class="maintag-set">
                 <img
-                  src="https://img.championat.com/news/big/p/y/v-dota-2-poyavilsya-pervyj-chestnyj-igrok-s-grandmasterom-na-marci-viktoriya-bonya_1637747390104987094.jpg"
+                  v-if="hyperlight.profiles.avatar_url"
+                  :src="hyperlight.profiles.avatar_url"
                   alt=""
                 />
-                <h6 class="font-secondary-bold text-lg">mixturegg</h6>
+                <h6 class="font-secondary-bold text-lg">
+                  {{ hyperlight.profiles.username }}
+                </h6>
               </div>
               <div class="maintag-set">
                 <img
-                  src="https://st5.depositphotos.com/69187398/66863/v/450/depositphotos_668639280-stock-illustration-counter-strike-shooting-game-go1.jpg"
+                  v-if="hyperlight.maintag.img_url"
+                  :src="hyperlight.maintag.img_url"
                   alt=""
                 />
-                <h6 class="font-secondary-bold text-lg">CS:GO</h6>
+                <h6 class="font-secondary-bold text-lg">
+                  {{ hyperlight.maintag.maintag }}
+                </h6>
               </div>
               <div class="flex flex-row items-center gap-x-2 ml-4">
-                <div class="hashtag-set">
+                <div
+                  class="hashtag-set"
+                  v-for="hashtag in hyperlight.hashtags"
+                  :key="hashtag"
+                >
                   <IconHash
                     class="w-[10px] min-w-[10px] h-[10px] min-h-[10px]"
                   />
-                  <p class="font-secondary-bold">Ace</p>
-                </div>
-                <div class="hashtag-set">
-                  <IconHash
-                    class="w-[10px] min-w-[10px] h-[10px] min-h-[10px]"
-                  />
-                  <p class="font-secondary-bold">Ak47</p>
-                </div>
-                <div class="hashtag-set">
-                  <IconHash
-                    class="w-[10px] min-w-[10px] h-[10px] min-h-[10px]"
-                  />
-                  <p class="font-secondary-bold">Dust2</p>
+                  <p class="font-secondary-bold">{{ hashtag }}</p>
                 </div>
               </div>
             </div>
@@ -101,7 +128,7 @@ const videoRef = ref();
       <div id="outer-details" class="hidden flex-col gap-y-2 mt-4 p-4 pb-6">
         <div class="flex flex-row justify-between items-center">
           <div class="flex flex-row items-center gap-x-4">
-            <h3 class="font-main-bold text-3xl">It's Hyperlights</h3>
+            <h3 class="font-main-bold text-3xl">{{ hyperlight.title }}</h3>
           </div>
           <div class="flex flex-row items-center gap-x-2">
             <div class="action-btn">
@@ -127,47 +154,43 @@ const videoRef = ref();
           <div class="flex flex-row gap-x-2 items-center mr-4">
             <NuxtLink to="/profile/mix" class="maintag-set">
               <img
-                src="https://img.championat.com/news/big/p/y/v-dota-2-poyavilsya-pervyj-chestnyj-igrok-s-grandmasterom-na-marci-viktoriya-bonya_1637747390104987094.jpg"
+                v-if="hyperlight.profiles.avatar_url"
+                :src="hyperlight.profiles.avatar_url"
                 alt=""
               />
-              <h6 class="font-secondary-bold text-lg">mixturegg</h6>
+              <h6 class="font-secondary-bold text-lg">
+                {{ hyperlight.profiles.username }}
+              </h6>
             </NuxtLink>
             <NuxtLink to="/" class="maintag-set">
               <img
-                src="https://st5.depositphotos.com/69187398/66863/v/450/depositphotos_668639280-stock-illustration-counter-strike-shooting-game-go1.jpg"
+                v-if="hyperlight.maintag.img_url"
+                :src="hyperlight.maintag.img_url"
                 alt=""
               />
-              <h6 class="font-secondary-bold text-lg">CS:GO</h6>
+              <h6 class="font-secondary-bold text-lg">
+                {{ hyperlight.maintag.maintag }}
+              </h6>
             </NuxtLink>
           </div>
           <div class="flex flex-row items-center gap-x-2">
-            <NuxtLink to="/" class="hashtag-set">
+            <NuxtLink
+              to="/"
+              class="hashtag-set"
+              v-for="hashtag in hyperlight.hashtags"
+              :key="hashtag"
+            >
               <IconHash class="w-[10px] min-w-[10px] h-[10px] min-h-[10px]" />
-              <p class="font-secondary-bold text-sm">Ace</p>
-            </NuxtLink>
-            <NuxtLink to="/" class="hashtag-set">
-              <IconHash class="w-[10px] min-w-[10px] h-[10px] min-h-[10px]" />
-              <p class="font-secondary-bold text-sm">Ak47</p>
-            </NuxtLink>
-            <NuxtLink to="/" class="hashtag-set">
-              <IconHash class="w-[10px] min-w-[10px] h-[10px] min-h-[10px]" />
-              <p class="font-secondary-bold text-sm">Dust2</p>
+              <p class="font-secondary-bold text-sm">{{ hashtag }}</p>
             </NuxtLink>
           </div>
         </div>
       </div>
     </div>
-    <div
-      id="comments"
-      class="w-full hidden flex-col justify-center items-center flex-1 max-w-[360px] bg-[#555] rounded-2xl h-full xl:flex"
-    >
-      <div id="no-comments" class="p-8 text-center">
-        <h5 class="font-secondary-bold text-xl text-white">No comments yet</h5>
-        <p class="font-secondary-bold text-white op-50">
-          Be the first one, who will do it :D
-        </p>
-      </div>
-    </div>
+    <Comments
+      :comments="hyperlight.comments"
+      @send-comment="submitComment($event, hyperlight.id)"
+    />
   </section>
 </template>
 <style scoped lang="scss">
@@ -182,14 +205,14 @@ const videoRef = ref();
 
   justify-content: center;
   align-items: center;
-  gap: 4px;
+  gap: 8px;
   color: rgba(255, 255, 255, 0.8);
 
   background-color: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(2px);
 
   padding: 4px 8px;
-  border-radius: 6px;
+  border-radius: 2px;
 
   transition: all 0.2s;
 
@@ -204,7 +227,7 @@ const videoRef = ref();
     min-width: 26px;
     height: 26px;
     min-height: 26px;
-    border-radius: 99px;
+    border-radius: 4px;
     padding: 2px;
 
     border: 1px solid #21ea59;
@@ -218,9 +241,9 @@ const videoRef = ref();
   justify-content: center;
   align-items: center;
   gap: 4px;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(0, 0, 0, 0.6);
 
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: #21ea59;
   backdrop-filter: blur(2px);
 
   padding: 4px 8px;
@@ -245,11 +268,18 @@ const videoRef = ref();
 
   gap: 4px;
 
-  padding: 6px;
-  border-radius: 6px;
+  padding: 4px 8px;
+  border-radius: 2px;
   color: rgba(255, 255, 255, 0.8);
   background-color: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(2px);
+
+  transition: all 0.2s;
+
+  &:hover {
+    color: rgba(255, 255, 255, 1);
+    background-color: rgba(0, 0, 0, 1);
+  }
 }
 
 .active {
@@ -286,17 +316,22 @@ const videoRef = ref();
   width: 100%;
   height: 100%;
 
+  opacity: 1;
+
   border-radius: 50%;
   background-color: rgba(51, 51, 51, 0.4);
   backdrop-filter: blur(2px);
   padding: 1rem;
 
   position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  transition: all 0.2s;
 
   z-index: 30;
+
+  &.active {
+    transform: scale(0.2);
+    opacity: 0;
+  }
 }
 
 @media only screen and (max-width: 1024px) {
@@ -311,12 +346,6 @@ const videoRef = ref();
 
   #outer-details {
     display: flex;
-  }
-
-  #comments {
-    display: flex;
-    min-width: calc(100vw - 40px);
-    margin: 0 auto 20px auto;
   }
 }
 
@@ -343,10 +372,6 @@ const videoRef = ref();
     padding: 1rem 1rem 2rem 1rem;
     display: flex;
   }
-
-  #comments {
-    display: flex;
-  }
 }
 
 @media only screen and (min-width: 1280px) and (min-height: 600px) {
@@ -357,16 +382,6 @@ const videoRef = ref();
   #outer-details {
     padding: 0;
     display: flex;
-  }
-
-  #comments {
-    display: flex;
-  }
-}
-
-@media only screen and (min-width: 1280px) and (max-height: 600px) {
-  #comments {
-    display: none;
   }
 }
 </style>

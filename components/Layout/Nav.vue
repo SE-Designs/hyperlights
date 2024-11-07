@@ -65,6 +65,24 @@ async function logout() {
         </NuxtLink>
       </div>
       <div class="flex flex-row items-center gap-x-4 mr-12px">
+        <div class="flex flex-row items-center gap-x-2 max-h-36px">
+          <div class="p-inputgroup flex-1 cursor-pointer">
+            <span class="p-inputgroup-addon">
+              <IconSearch />
+            </span>
+            <Button
+              size="small"
+              severity="primary"
+              outlined
+              class="w-520px min-w-0"
+              style="border: 1px solid #2c362b; background-color: #111"
+              >Search...</Button
+            >
+            <!-- <InputText size="small" placeholder="Search..." /> -->
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-row items-center gap-x-4 mr-12px">
         <div class="flex flex-row items-center gap-x-2">
           <Button
             class="flex flex-row items-center gap-x-2 max-h-[36px]"
@@ -74,13 +92,6 @@ async function logout() {
           >
             <IconLightning />
             <p>Create</p>
-          </Button>
-          <Button
-            class="flex flex-row items-center gap-x-2 max-h-[36px]"
-            size="small"
-          >
-            <IconSearch />
-            <p>Search</p>
           </Button>
         </div>
         <img

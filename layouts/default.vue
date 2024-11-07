@@ -1,8 +1,4 @@
 <script setup lang="ts">
-definePageMeta({
-  middleware: ["auth"],
-});
-
 import { useToast } from "primevue/usetoast";
 const toast = useToast();
 const darkMode = ref(true);
@@ -32,7 +28,7 @@ function showNotification(
     @show-notification="showNotification"
   />
   <main
-    class="pt-0 pl-0 border-1 border-white w-screen min-h-screen xl:pt-[60px] sm:pl-[60px]"
+    class="pt-0 pl-0 border-1 border-white w-screen min-h-screen xl:pt-[60px] sm:pl-[60px] overflow-hidden"
   >
     <div
       class="flex flex-col items-center min-h-screen z-0 text-[#21EA59] transition xl:p-8 xl:min-h-[calc(100vh-60px)]"
